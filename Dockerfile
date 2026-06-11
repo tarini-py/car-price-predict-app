@@ -7,7 +7,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY app/flask_app.py .
+COPY apps/flask_app.py .
 COPY models/xgb_car_price_model.pkl ./models/
 
 # Tell Docker that the container listens on port 5000
