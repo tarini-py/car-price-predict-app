@@ -4,13 +4,30 @@ import pickle
 
 app = Flask(__name__)
 
+@app.route("/", methods = ["GET"])
+def index():
+    return "Hello, welcome"
+
 # Load model once at startup
 with open("models/xgb_car_price_model.pkl", "rb") as f:
     model = pickle.load(f)
 
-@app.route("/predict", methods=["POST"])
+@app.route("/predict", methods=["POST","GET"])
 def predict():
-
+    if request.method == "GET":
+        return jsonify({
+            "Instruction": "Send a POST request using this exact JSON format",
+            "Note": "fuel_type can be Petrol/Diesel/Electric",
+            
+            "required_format": 
+            {
+                "km_driven": 45000,
+                "mileage": 18,
+                "age": 5,
+                "fuel_type": "Petrol"
+            }
+        })
+    
     data = request.json
 
     # Extract inputs
@@ -40,9 +57,7 @@ def predict():
     })
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
-
-
+    app.run(host="0.0.0.0", port=5000, debug=True)
 
 
 # {
