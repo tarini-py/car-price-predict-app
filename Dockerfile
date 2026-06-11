@@ -1,16 +1,17 @@
 # Base image - python + os
 FROM python:3.10-slim
-# Creating a directory
-WORKDIR /app
-# Copying requirements file into the container directory
-COPY requirements.txt .
 
+WORKDIR /app
+
+# Copy and install dependencies
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY apps/flask_app.py .
+COPY app/flask_app.py .
 COPY models/xgb_car_price_model.pkl ./models/
 
-# location of the flask app/ port number
+# Tell Docker that the container listens on port 5000
 EXPOSE 5000
 
+# Run the Flask app (Make sure host is 0.0.0.0!)
 CMD ["python", "flask_app.py"]
