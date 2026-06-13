@@ -4,9 +4,13 @@ import pickle
 
 app = Flask(__name__)
 
-@app.route("/", methods = ["GET"])
-def index():
+@app.route("/")
+def home():
     return "Hello, welcome"
+
+@app.route("/<username>", methods = ["GET"])
+def index(username):
+    return f"Hello {username}, welcome"
 
 # Load model once at startup
 with open("models/xgb_car_price_model.pkl", "rb") as f:
