@@ -16,5 +16,9 @@ EXPOSE 5000
 # # Run the Flask app (Make sure host is 0.0.0.0!) : dev server
 # CMD ["python", "flask_app.py"]
 
-# Run Gunicorn for Production environment
-CMD ["gunicorn", "-b", "0.0.0.0:5000", "flask_app:app"]
+# Default to 1 workers(vertical scaling) if nothing is passed, but allow overrides like below command
+# docker run -p 80:5000 -e WORKERS=5 image_name
+ENV WORKERS=1
+
+# Run Gunicorn using the environment variable for Production environment
+CMD ["/bin/sh", "-c", "gunicorn -w $WORKERS -b 0.0.0.0:5000 flask_app:app"]
