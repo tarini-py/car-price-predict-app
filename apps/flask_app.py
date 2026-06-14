@@ -1,6 +1,6 @@
+import pickle
 from flask import Flask, request, jsonify
 import pandas as pd
-import pickle
 
 app = Flask(__name__)
 
@@ -21,8 +21,7 @@ def predict():
     if request.method == "GET":
         return jsonify({
             "Instruction": "Send a POST request using this exact JSON format",
-            "Note": "fuel_type can be Petrol/Diesel/Electric",
-            
+            "Note": "fuel_type can be Petrol/Diesel/Electric",         
             "required_format": 
             {
                 "km_driven": 45000,
@@ -31,9 +30,7 @@ def predict():
                 "fuel_type": "Petrol"
             }
         })
-    
     data = request.json
-
     # Extract inputs
     km_driven = data["km_driven"]
     mileage = data["mileage"]
