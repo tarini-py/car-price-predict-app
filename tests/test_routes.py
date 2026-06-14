@@ -1,12 +1,11 @@
-import pytest 
+import pytest
 from apps.flask_app import app
 
-@pytest.fixture
-def client():
-    # Set up the Flask test client
+@pytest.fixture(name="client")
+def client_setup():
     app.config['TESTING'] = True
-    with app.test_client() as client:
-        yield client
+    with app.test_client() as client_ob:
+        yield client_ob
 
 def test_home(client):
     resp = client.get("/")
@@ -16,7 +15,7 @@ def test_welcome_msg(client):
     resp = client.get("/deepak")
     assert resp.status_code == 200
     assert resp.data.decode('utf-8') == "Hello deepak, welcome"
-    
+
 def test_predict(client):
     test_data = {
         "km_driven": 45000,
