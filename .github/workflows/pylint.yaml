@@ -1,4 +1,4 @@
-name: Pylint
+name: Run Pylint
 
 on: [push, pull_request] # Added pull_request so it checks code before merging, this will trigger in all branches
 

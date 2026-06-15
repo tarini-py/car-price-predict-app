@@ -1,4 +1,4 @@
-name: Run Python_test_for_flask_app
+name: Run pytest
 
 on: [push, pull_request] # Added pull_request so it checks code before merging, this will trigger in all branches
 
