@@ -20,7 +20,7 @@ env:
 jobs:
   # Job 1: Static Code Analysis
   lint:
-    name: Code Quality (Pylint)
+    name: Code Quality Check (Pylint)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -38,9 +38,10 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           pip install pylint
+          pip install pytest
 
       - name: Analysing the code with Pylint
-        run: PYTHONPATH=. pylint apps/ tests/
+        run: PYTHONPATH=. pylint apps/ tests/ scripts/
 
   # Job 2: Unit Testing
   test:
