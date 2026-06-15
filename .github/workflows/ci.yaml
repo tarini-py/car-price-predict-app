@@ -9,9 +9,26 @@ on:
   push:
     branches:
       - '**'
+    paths-ignore:
+      - '**.md'          # Ignores README.md and all other markdown files
+      - '.gitignore'     # Ignores git configurations
+      - '.pylintrc'
+      - 'docs/**'        # Ignores an entire documentation folder if you have one
+      - 'notebooks/**'
+      - 'scripts/**'
+      - 'data/**'
+      
   pull_request:
     branches:
       - '**'
+    paths-ignore:
+      - '**.md'          # Ignores README.md and all other markdown files
+      - '.gitignore'     # Ignores git configurations
+      - '.pylintrc'
+      - 'docs/**'        # Ignores an entire documentation folder if you have one
+      - 'notebooks/**'
+      - 'scripts/**'
+      - 'data/**'
 
 # 1. DEFINE YOUR PYTHON VERSION HERE ONCE 
 env:
