@@ -1,0 +1,68 @@
+name: Flask Code Quality and Testing Pipeline
+
+description: >
+  Automated Continuous Integration pipeline for the Flask application. 
+  This workflow handles static code analysis (Pylint) and executes the unit 
+  test suite (Pytest). It triggers on pushes and pull requests across all branches.
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+# 1. DEFINE YOUR PYTHON VERSION HERE ONCE 
+env:
+  PYTHON_VERSION: '3.13'
+
+jobs:
+  # Job 1: Static Code Analysis
+  lint:
+    name: Code Quality (Pylint)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Reusing the global variable here
+      - name: Set up Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+
+      - name: Install Dependencies & Pylint
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install pylint
+
+      - name: Analysing the code with Pylint
+        run: PYTHONPATH=. pylint apps/ tests/
+
+  # Job 2: Unit Testing
+  test:
+    name: Run Unit Tests (Pytest)
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 3. Reusing the global variable here as well
+      - name: Set up Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+
+      - name: Install Dependencies & Pytest
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install pytest
+
+      - name: Run tests with Pytest
+        run: PYTHONPATH=. pytest
