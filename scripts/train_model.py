@@ -1,8 +1,9 @@
 import pickle
 import pandas as pd
 from xgboost import XGBRegressor
+from scripts.config import DATA_PATH, MODEL_PATH
 
-cars_df = pd.read_csv(r"C:\Users\swath\new_app\data\cars24-car-price-cleaned-new.csv")
+cars_df = pd.read_csv(DATA_PATH)
 
 X = cars_df[['km_driven','mileage','age','Petrol','Diesel','Electric']]
 y = cars_df['selling_price']   # better as 1D array
@@ -18,5 +19,5 @@ xgb_model.fit(X, y)
 
 # Save model
 # wb - write binary
-with open(r"C:\Users\swath\new_app\models\xgb_car_price_model.pkl", "wb") as f:
+with open(MODEL_PATH, "wb") as f:
     pickle.dump(xgb_model, f)

@@ -1,4 +1,4 @@
-name: Deploy to Amazon ECS
+name: Deploy to AWS ECS
 
 on:
   workflow_run:
@@ -83,5 +83,5 @@ jobs:
         
         echo "========================================================="
         echo "🚀 DEPLOYMENT SUCCESSFUL!"
-        echo "🌐 Your Flask app is live at: http://$PUBLIC_IP:5000"
+        echo "🌐 Your Flask app is live at: http://$PUBLIC_IP"
         echo "========================================================="

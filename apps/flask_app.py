@@ -57,6 +57,8 @@ def predict():
         "predicted_price": float(prediction)
     })
 
+# This block ONLY runs when you execute the file directly on your local machine
+# (e.g., python flask_app.py). Gunicorn will safely ignore this in production.
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
 

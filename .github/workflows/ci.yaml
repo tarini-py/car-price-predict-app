@@ -88,4 +88,4 @@ jobs:
           fi
 
       - name: Run tests with Pytest
-        run: PYTHONPATH=. pytest
+        run: PYTHONPATH=. pytest -v
