@@ -16,6 +16,7 @@ EXPOSE 80
 # # Run the Flask app (Make sure host is 0.0.0.0!) : dev server
 # CMD ["python", "flask_app.py"]
 
+# For GUNICORN
 # Default to 1 workers(vertical scaling) if nothing is passed, but allow overrides like below command
 # docker run -p 80:5000 -e WORKERS=5 image_name
 ENV WORKERS=1
