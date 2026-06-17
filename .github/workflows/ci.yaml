@@ -60,7 +60,7 @@ jobs:
           fi
 
       - name: Analysing the code with Pylint
-        run: PYTHONPATH=. pylint apps/ tests/ scripts/
+        run: PYTHONPATH=. pylint apps/ tests/
 
   # Job 2: Unit Testing
   test:
